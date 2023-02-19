@@ -19,7 +19,10 @@ config.load_incluster_config()
         # Try to use kube/config
         config.load_kube_config()
     except:
-        client.AppsV1Api()
+        # Configure using cluster config
+        config.load_incluster_config()
+
+    apps_client = client.AppsV1Api()
 
     deployments = apps_client.list_deployment_for_all_namespaces(watch=False)
 
