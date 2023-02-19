@@ -13,7 +13,6 @@ parser.add_argument("-d", "--days", help="Set the number of days after of which 
 args = parser.parse_args()
 
 def main():
-config.load_incluster_config()
 
     try:
         # Try to use kube/config
