@@ -13,11 +13,14 @@ parser.add_argument("-d", "--days", help="Set the number of days after of which 
 args = parser.parse_args()
 
 def main():
+config.load_incluster_config()
 
-    # The script relies on kube/config
-    config.load_kube_config()
+    try:
+        # Try to use kube/config
+        config.load_kube_config()
+    except:
+        client.AppsV1Api()
 
-    apps_client = client.AppsV1Api()
     deployments = apps_client.list_deployment_for_all_namespaces(watch=False)
 
     pt_deployments = []
