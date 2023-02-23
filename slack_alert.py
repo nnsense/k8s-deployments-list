@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-import os
 import sys
 import argparse
 import base64
@@ -22,11 +21,11 @@ slack_token = base64.b64decode(secret).decode('utf-8').rstrip()
 def post(slack_message, slack_channel, bot_username):
 
     response = { 'ok': False }
-    
+
     slack_message = "```" + slack_message + "```"
-    
+
     client = WebClient(token=slack_token)
-    
+
     print("Posting new message to: " + slack_channel )
     
     try:

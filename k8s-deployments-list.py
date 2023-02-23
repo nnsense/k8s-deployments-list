@@ -54,22 +54,24 @@ def main():
     deployments = pt_table.get_string(sortby="Owner")
     print(deployments)
     
+
     if args.slack_channel:
         slack_channel = args.slack_channel
+
+        if args.bot_username:
+            bot_username = args.bot_username
+        else:
+            bot_username = "InfraBOT"
+
+        f = open("Test deployments older than " + str(args.days) + " days.txt", "w")
+        f.write(deployments)
+        f.close()
+
+        slack_alert.upload("Test deployments older than " + str(args.days) + " days.txt", slack_channel, bot_username)
+
     else:
-        print("slack channel (-c) is required")
+        print("Post to slack requires a slack channel (-c)")
         exit()
-
-    if args.bot_username:
-        bot_username = args.bot_username
-    else:
-        bot_username = "InfraBOT"
-
-    f = open("Test deployments older than " + str(args.days) + " days.txt", "w")
-    f.write(deployments)
-    f.close()
-
-    slack_alert.upload("Test deployments older than " + str(args.days) + " days.txt", slack_channel, bot_username)
 
 if __name__ == '__main__':
     main()
